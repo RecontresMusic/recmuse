@@ -218,6 +218,7 @@
     <Resource Include="nextprev.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icon.ico" />
     <Resource Include="nextt.png" />
     <Resource Include="playt.png" />
     <Resource Include="angle-double-right.png" />

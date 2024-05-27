@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rm"
         mc:Ignorable="d"
-        Title="RM" Height="600" Width="300" MinWidth="300" MinHeight="600" MaxWidth="300" MaxHeight="600" WindowStyle="None">
+        Title="RM" Height="600" Width="300" MinWidth="300" MinHeight="600" MaxWidth="300" MaxHeight="600" WindowStyle="None" Icon="/icon.ico">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" CornerRadius="20" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
