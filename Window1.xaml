@@ -1,0 +1,267 @@
+﻿<Window x:Class="rm.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:rm"
+        Title="Recmus" Height="700" Width="1280" WindowStyle="None" RenderTransformOrigin="0,0" MinWidth="600" MinHeight="700"
+        AllowsTransparency="True" Background="Transparent"
+        Loaded="Window_Loaded">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" CornerRadius="0" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <!-- Стиль для ListBox -->
+        <Style x:Key="RoundedListBox" TargetType="{x:Type ListBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}" x:Key="CustomScrollBar" BasedOn="{StaticResource {x:Type ScrollBar}}">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Margin" Value="0, 3, 3, 3"/>
+            <Setter Property="Background" Value="Gray"/>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                <Grid>
+                                    <Rectangle Fill="{TemplateBinding Background}" Width="17" RadiusX="10" RadiusY="10">
+
+                                    </Rectangle>
+                                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                        <Track.Thumb>
+                                            <Thumb Background="DarkGray">
+                                                <Thumb.Template>
+                                                    <ControlTemplate TargetType="{x:Type Thumb}">
+                                                        <Border Background="DarkGray" CornerRadius="10"/>
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="1"/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Window.RenderTransform>
+
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+
+    <!-- for animatsiya -->
+
+    <Grid x:Name="mainGrid" Background="LightBlue">
+        <!-- Определения столбцов -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="82*" MinWidth="100"/>
+            <ColumnDefinition Width="{Binding FirstColumnWidth}"/>
+            <ColumnDefinition Width="463*"/>
+            <!-- Основной контент -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Кнопки свернуть, развернуть, закрыть -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Определения строк -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="60"/>
+            <!-- Верхняя панель -->
+            <RowDefinition Height="*"/>
+            <!-- Основной контент -->
+            <RowDefinition Height="Auto" MinHeight="60"/>
+            <!-- Нижняя панель с кнопками -->
+        </Grid.RowDefinitions>
+
+
+
+        <!-- Нижняя панель со скругленными углами -->
+        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="32,0,32,10" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="66" VerticalAlignment="Bottom"/>
+        <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,0,0,10" HorizontalAlignment="Left" Width="125" Grid.RowSpan="2" Height="66" VerticalAlignment="Bottom"/>
+
+        <!-- Кнопка плэй -->
+        <Button x:Name="animatedButton" Margin="41,0,0,16" Grid.Row="1" Grid.RowSpan="2" Background="#FFDDDDDD" HorizontalAlignment="Left" 
+                Width="56" Height="54" VerticalAlignment="Bottom" Command="{Binding TogglePlayCommand}" Click="AnimatedButton_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#FF60BFDE"/>
+                        <Path x:Name="playPath" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Data="{Binding IconData}" Height="{Binding IconHeight}" Stretch="Fill" Width="{Binding IconWidth}" Margin="{Binding IconMargin}">
+                        </Path>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Resources>
+                <Storyboard x:Key="ShrinkAndGrowAnimation">
+                    <!-- Анимация уменьшения ширины -->
+                    <DoubleAnimation Storyboard.TargetProperty="Width" From="56" To="55"
+                                     Duration="0:0:0.1" AutoReverse="True"/>
+                    <!-- Анимация уменьшения высоты -->
+                    <DoubleAnimation Storyboard.TargetProperty="Height" From="54" To="53"
+                                     Duration="0:0:0.1" AutoReverse="True"/>
+                </Storyboard>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="AnimateNextButtton" Margin="102,0,0,22" Grid.Row="1" HorizontalAlignment="Left" Width="42" Height="42" VerticalAlignment="Bottom" Grid.RowSpan="2"
+                Click="AnimatedButton_Next">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#FF488EA5"/>
+                        <Path Fill="White" HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Data="M 0 0 L 30 15 L 0 30 Z M 30 0 L 60 15 L 30 30 Z" Stretch="Fill" Width="21" Height="16" Margin="12,0,0,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Resources>
+                <Storyboard x:Key="GoRightNext">
+                    <!-- Анимация уменьшения ширины -->
+                    <DoubleAnimation Storyboard.TargetProperty="Width" From="42" To="40"
+                         Duration="0:0:0.1" AutoReverse="True"/>
+                    <!-- Анимация уменьшения высоты -->
+                    <DoubleAnimation Storyboard.TargetProperty="Height" From="42" To="40"
+                         Duration="0:0:0.1" AutoReverse="True"/>
+                    <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                            From="102,0,0,22" To="110,0,0,22" Duration="0:0:0.1" AutoReverse="True"/>
+                </Storyboard>
+            </Button.Resources>
+        </Button>
+
+        <!-- Иконки облака снизу -->
+        <Image Grid.Row="1" Source="/cloud.png" RenderTransformOrigin="0.5,0.5" Margin="0,0,-46,-51" HorizontalAlignment="Right" Width="155" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="156" VerticalAlignment="Bottom" Grid.Column="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Border Background="LightBlue" MouseLeftButtonDown="DragMoveWindow" Margin="0,0,0,10" Grid.ColumnSpan="3"/>
+        <!-- Иконка  облака сверху -->
+        <Image Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-12,-46,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="205" Grid.Column="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="140"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image MouseLeftButtonDown="DragMoveWindow" Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-24,10,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Right" Width="206" Grid.Column="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="140"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="-48,16,0,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Left" Width="210">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="140"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <!-- Кнопки свернуть, развернуть, закрыть в верхнем правом углу -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,0,0" Width="106" Grid.Column="2" Height="30">
+            <Button Width="30" Height="30" Content="↪" Margin="0" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="20" Padding="1,1,1,1" Click="RollDownWindow"/>
+            <Button Width="30" Height="30" Content="▢" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="25" RenderTransformOrigin="0.5,0" Padding="1,-4,1,1" Click="GoFullScreenButton"/>
+            <Button Width="30" Height="29" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="25" FontFamily="Bahnschrift Light" Click="CloseWindow" RenderTransformOrigin="0.5,0" Content="X"/>
+        </StackPanel>
+        <TextBlock MouseLeftButtonDown="DragMoveWindow" Text="Recmus" Width="200" Height="40" Margin="36,13,0,0" FontSize="35" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
+        <Border Grid.Row="1" Background="#FFEDEDED" CornerRadius="10" Margin="32,61,32,30" Grid.ColumnSpan="3">
+            
+        </Border>
+        <!-- List with albums -->
+        <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,61,12,30"
+                Visibility="{Binding ElementsVisibility}" Grid.ColumnSpan="2"/>
+
+        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="42,101,22,39"
+                Visibility="{Binding ElementsVisibility}" Grid.ColumnSpan="2">
+            <ListBox x:Name="playlistListBox" 
+                     Margin="3,3,3,3" 
+                     ItemsSource="{Binding Playlists}" 
+                     Style="{StaticResource RoundedListBox}"
+                     Visibility="{Binding ElementsVisibility}" 
+                     SelectedItem="{Binding SelectedPlaylist}"
+                     Background="#DD656565"
+                     BorderBrush="#FF9E9E9E" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}"/>
+                </ListBox.Resources>
+            </ListBox>
+        </Border>
+        <Button Height="31" Background="#FF656565" BorderBrush="#FF656565" FontSize="20" 
+        FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="➕" 
+        Margin="0,66,22,0" Foreground="#FFEDEDED" VerticalAlignment="Top" Grid.Row="1" 
+        HorizontalAlignment="Right" Width="34" Visibility="{Binding ElementsVisibility}" Grid.Column="1"
+                 Command="{Binding AddPlaylistCommand}"/>
+
+        <Button Height="31" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="20" 
+        FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="➕" 
+        Margin="0,66,40,0" Foreground="#FF656565" VerticalAlignment="Top" Grid.Row="1" 
+        HorizontalAlignment="Right" Width="34" Command="{Binding OpenFileCommand}" Grid.Column="2"
+                Visibility="{Binding RectangleVisibility}"/>
+
+        <Button Height="31" BorderBrush="{Binding BorderBrush}" FontSize="25" FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="{Binding ButtonContent}" 
+        Margin="42,66,0,0" Foreground="{Binding Foreground}" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Left" Width="34"
+        Command="{Binding ToggleVisibilityCommand}" Background="{Binding Background}"/>
+
+
+
+        <Border Grid.Row="1" CornerRadius="10" Background="#FFEDEDED" Margin="0,251,40,39" Grid.Column="2">
+            <ListBox x:Name="trackListBox" BorderBrush="#FFEDEDED" Background="#FFEDEDED" ItemsSource="{Binding Items}" 
+                     Visibility="{Binding RectangleVisibility}">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource CustomScrollBar}"/>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="20" Padding="5" FontFamily="Bahnschrift SemiBold">
+
+                            <TextBlock.ContextMenu>
+                                <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                    <MenuItem Header="Удалить" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        <Rectangle Margin="0,244,40,0" Grid.Row="1" Stroke="#FF656565" Grid.Column="2" Height="2" VerticalAlignment="Top" Fill="#FF656565"
+                   Visibility="{Binding RectangleVisibility}"/>
+    </Grid>
+</Window>
+

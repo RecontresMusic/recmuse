@@ -1,0 +1,134 @@
+﻿<Window x:Name="rmRegWindow" x:Class="rm.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:rm"
+        mc:Ignorable="d"
+        Title="RM" Height="600" Width="300" MinWidth="300" MinHeight="600" MaxWidth="300" MaxHeight="600" WindowStyle="None">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" CornerRadius="20" GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <!-- Стиль для TextBox с скруглёнными краями -->
+        <Style TargetType="TextBox" x:Key="RoundedTextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+        <!-- Стиль для PassBox с скруглёнными краями -->
+        <Style TargetType="PasswordBox" x:Key="RoundedPassBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+
+        <!-- Стиль для стилизованной кнопки -->
+        <Style x:Key="StylizedButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF656565"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#ADD8E6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#EDEDED"/>
+                                <Setter Property="BorderBrush" Value="#FF656565" />
+                                <Setter Property="Foreground" Value="#FF656565" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF656565"/>
+                                <Setter Property="BorderBrush" Value="#ADD8E6"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="mainGrid" Background="LightBlue">
+        <!-- Определения столбцов -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="100" Width="49*"/>
+            <ColumnDefinition/>
+            <!-- Основной контент -->
+            <!-- Кнопки свернуть, развернуть, закрыть -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Определения строк -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="600" MinHeight="600"/>
+            <!-- Верхняя панель -->
+            <!-- Основной контент -->
+            <RowDefinition Height="Auto" MinHeight="40"/>
+            <!-- Нижняя панель с кнопками -->
+        </Grid.RowDefinitions>
+        <Rectangle MouseLeftButtonDown="DragMoveWindow" HorizontalAlignment="Left" Height="56" Stroke="LightBlue" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Fill="LightBlue"/>
+        <Image HorizontalAlignment="Left" Height="172" Margin="160,-68,0,0" VerticalAlignment="Top" Width="178" Source="/cloud.png" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-144.235"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <TextBox x:Name="LoginField" Style="{StaticResource RoundedTextBox}" Margin="46,339,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" FontSize="21" FontFamily="Bahnschrift Light" Padding="2,5,2,2"/>
+        <PasswordBox x:Name="PasswordBox" Style="{StaticResource RoundedPassBox}" Margin="46,384,40,0" VerticalAlignment="Top" Height="40" Padding="2,5,2,2" FontSize="21" FontFamily="Bahnschrift Light"/>
+
+        <Button x:Name="LoginButton" Style="{StaticResource StylizedButton}" Content="Login" HorizontalAlignment="Left" Margin="46,0,0,148" Click="LoginButton_Click" Width="94" Height="40" VerticalAlignment="Bottom"/>
+
+        <Button x:Name="RegisterButton" Style="{StaticResource StylizedButton}" Content="Register" Margin="0,0,40,148" Click="RegisterButton_Click" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="94"/>
+        <Image HorizontalAlignment="Center" Height="173" Margin="0,123,0,0" VerticalAlignment="Top" Width="158" Source="/cloud.png"/>
+        <Label Content="Recmus" HorizontalAlignment="Center" Margin="0,190,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift SemiBold" FontSize="30" Foreground="#FF656565" RenderTransformOrigin="0.021,0.153"/>
+        <Button Width="30" Height="29" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="25" FontFamily="Bahnschrift Light" Click="CloseWindow" RenderTransformOrigin="0.5,0" Content="X" Margin="0,8,4,563" HorizontalAlignment="Right"/>
+        <Image HorizontalAlignment="Left" Height="173" Margin="-67,486,0,0" VerticalAlignment="Top" Width="178" Source="/cloud.png" Grid.RowSpan="2"/>
+
+
+    </Grid>
+</Window>
