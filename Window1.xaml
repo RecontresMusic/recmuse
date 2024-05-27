@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:rm"
-        Title="Recmus" Height="700" Width="1280" WindowStyle="None" RenderTransformOrigin="0,0" MinWidth="600" MinHeight="700"
+        Title="Recmus" Height="700" Width="1280" WindowStyle="None" RenderTransformOrigin="0,0" MinWidth="800" MinHeight="700"
         AllowsTransparency="True" Background="Transparent"
         Loaded="Window_Loaded">
 
@@ -75,9 +75,9 @@
     <Grid x:Name="mainGrid" Background="LightBlue">
         <!-- Определения столбцов -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="114*" MinWidth="100"/>
-            <ColumnDefinition Width="63*"/>
-            <ColumnDefinition Width="463*"/>
+            <ColumnDefinition Width="171*" MinWidth="100"/>
+            <ColumnDefinition Width="364*"/>
+            <ColumnDefinition Width="105*"/>
             <!-- Основной контент -->
             <ColumnDefinition Width="Auto"/>
             <!-- Кнопки свернуть, развернуть, закрыть -->
@@ -96,7 +96,7 @@
 
 
         <!-- Нижняя панель со скругленными углами -->
-        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="32,564,32,0" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="66" VerticalAlignment="Top"/>
+        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="32,0,32,10" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="66" VerticalAlignment="Bottom"/>
         <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,0,0,10" HorizontalAlignment="Left" Width="125" Grid.RowSpan="2" Height="66" VerticalAlignment="Bottom"/>
 
         <!-- Кнопка плэй -->
@@ -162,7 +162,7 @@
         </Image>
         <Border Background="LightBlue" MouseLeftButtonDown="DragMoveWindow" Margin="0,0,0,10" Grid.ColumnSpan="3"/>
         <!-- Иконка  облака сверху -->
-        <Image Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-12,-46,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="205" Grid.Column="2">
+        <Image Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-12,-46,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Right" Width="204" Grid.Column="2" Grid.ColumnSpan="2">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>
@@ -172,7 +172,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image MouseLeftButtonDown="DragMoveWindow" Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-24,10,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Right" Width="206" Grid.Column="2">
+        <Image MouseLeftButtonDown="DragMoveWindow" Source="/cloud.png" RenderTransformOrigin="0.5,0" Margin="0,-24,2,0" Height="210" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Right" Width="206" Grid.Column="2">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>
@@ -193,22 +193,22 @@
             </Image.RenderTransform>
         </Image>
         <!-- Кнопки свернуть, развернуть, закрыть в верхнем правом углу -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,0,0" Width="106" Grid.Column="2" Height="30">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Column="2" Height="30" HorizontalAlignment="Right" Width="106">
             <Button Width="30" Height="30" Content="↪" Margin="0" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="20" Padding="1,1,1,1" Click="RollDownWindow"/>
             <Button Width="30" Height="30" Content="▢" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="25" RenderTransformOrigin="0.5,0" Padding="1,-4,1,1" Click="GoFullScreenButton"/>
             <Button Width="30" Height="29" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="25" FontFamily="Bahnschrift Light" Click="CloseWindow" RenderTransformOrigin="0.5,0" Content="X"/>
         </StackPanel>
-        <TextBlock MouseLeftButtonDown="DragMoveWindow" Text="Recmus" Width="200" Height="40" Margin="36,13,0,0" FontSize="35" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBlock MouseLeftButtonDown="DragMoveWindow" Text="Recmus" Width="200" Height="40" Margin="36,13,0,0" FontSize="35" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <Border Grid.Row="1" Background="#FFEDEDED" CornerRadius="10" Margin="32,61,32,30" Grid.ColumnSpan="3">
 
         </Border>
         <!-- List with albums -->
-        <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,61,12,30"
-                Visibility="{Binding ElementsVisibility}" Grid.ColumnSpan="2"/>
+        <Border Grid.Row="1" Grid.Column="0" Background="#FF656565" CornerRadius="10" Margin="32,61,10,30"
+                Visibility="{Binding ElementsVisibility}"/>
 
         <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="42,101,22,39"
-                Visibility="{Binding ElementsVisibility}" Grid.ColumnSpan="2">
+                Visibility="{Binding ElementsVisibility}">
             <ListBox x:Name="playlistListBox" 
                      Margin="3,3,3,3" 
                      ItemsSource="{Binding Playlists}" 
@@ -224,14 +224,13 @@
         </Border>
         <Button Height="31" Background="#FF656565" BorderBrush="#FF656565" FontSize="20" 
         FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="➕" 
-        Margin="0,66,22,0" Foreground="#FFEDEDED" VerticalAlignment="Top" Grid.Row="1" 
-        HorizontalAlignment="Right" Width="34" Visibility="{Binding ElementsVisibility}" Grid.Column="1"
+        Margin="0,65,22,0" Foreground="#FFEDEDED" VerticalAlignment="Top" Grid.Row="1" 
+        HorizontalAlignment="Right" Width="34" Visibility="{Binding ElementsVisibility}"
                  Command="{Binding AddPlaylistCommand}"/>
 
         <Button Height="31" Background="#FFEDEDED" BorderBrush="#FFEDEDED" FontSize="20" 
         FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="➕" 
-        Margin="0,66,40,0" Foreground="#FF656565" VerticalAlignment="Top" Grid.Row="1" 
-        HorizontalAlignment="Right" Width="34" Command="{Binding OpenFileCommand}" Grid.Column="2"
+        Margin="0,65,40,0" Foreground="#FF656565" VerticalAlignment="Top" Grid.Row="1" Command="{Binding OpenFileCommand}" Grid.Column="2" HorizontalAlignment="Right" Width="34"
                 Visibility="{Binding RectangleVisibility}"/>
 
         <Button Height="31" BorderBrush="{Binding BorderBrush}" FontSize="25" FontFamily="Bahnschrift Light" RenderTransformOrigin="0.5,0" Content="{Binding ButtonContent}" 
@@ -240,7 +239,7 @@
 
 
 
-        <Border Grid.Row="1" CornerRadius="10" Background="#FFEDEDED" Margin="0,251,40,39" Grid.Column="2">
+        <Border Grid.Row="1" CornerRadius="10" Background="#FFEDEDED" Margin="10,251,40,39" Grid.Column="1" Grid.ColumnSpan="2">
             <ListBox x:Name="trackListBox" BorderBrush="#FFEDEDED" Background="#FFEDEDED" ItemsSource="{Binding Items}" 
                      Visibility="{Binding RectangleVisibility}">
                 <ListBox.Resources>
@@ -260,7 +259,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Border>
-        <Rectangle Margin="0,244,40,0" Grid.Row="1" Stroke="#FF656565" Grid.Column="2" Height="2" VerticalAlignment="Top" Fill="#FF656565"
+        <Rectangle Margin="10,244,40,0" Grid.Row="1" Stroke="#FF656565" Grid.Column="1" Height="2" VerticalAlignment="Top" Fill="#FF656565" Grid.ColumnSpan="2"
                    Visibility="{Binding RectangleVisibility}"/>
     </Grid>
 </Window>
