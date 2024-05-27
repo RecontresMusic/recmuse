@@ -75,8 +75,8 @@
     <Grid x:Name="mainGrid" Background="LightBlue">
         <!-- Определения столбцов -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="82*" MinWidth="100"/>
-            <ColumnDefinition Width="{Binding FirstColumnWidth}"/>
+            <ColumnDefinition Width="114*" MinWidth="100"/>
+            <ColumnDefinition Width="63*"/>
             <ColumnDefinition Width="463*"/>
             <!-- Основной контент -->
             <ColumnDefinition Width="Auto"/>
@@ -96,7 +96,7 @@
 
 
         <!-- Нижняя панель со скругленными углами -->
-        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="32,0,32,10" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="66" VerticalAlignment="Bottom"/>
+        <Border Grid.Row="1" Background="#FF9E9E9E" CornerRadius="10" Margin="32,564,32,0" Grid.RowSpan="2" Grid.ColumnSpan="3" Height="66" VerticalAlignment="Top"/>
         <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,0,0,10" HorizontalAlignment="Left" Width="125" Grid.RowSpan="2" Height="66" VerticalAlignment="Bottom"/>
 
         <!-- Кнопка плэй -->
@@ -201,7 +201,7 @@
         <TextBlock MouseLeftButtonDown="DragMoveWindow" Text="Recmus" Width="200" Height="40" Margin="36,13,0,0" FontSize="35" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
         <Border Grid.Row="1" Background="#FFEDEDED" CornerRadius="10" Margin="32,61,32,30" Grid.ColumnSpan="3">
-            
+
         </Border>
         <!-- List with albums -->
         <Border Grid.Row="1" Background="#FF656565" CornerRadius="10" Margin="32,61,12,30"
