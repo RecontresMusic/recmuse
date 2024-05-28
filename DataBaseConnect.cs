@@ -6,7 +6,7 @@ namespace rm
 {
     public class DataBaseConnect
     {
-        private static string ConnString = "server=188.187.190.68;user=ftp;password=qweqwe123;database=recmusic;";        
+        private static string ConnString = "server=188.187.190.68;user=root;password=root;database=recmusic;";        
         public static bool VerifyPassword(string enteredPassword, string storedHash)
         {
             byte[] hashBytes = Convert.FromBase64String(storedHash);
