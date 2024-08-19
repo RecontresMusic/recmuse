@@ -1,3 +1,4 @@
 ![Artboard 1](https://github.com/RecontresMusic/recmus/assets/110759159/a42ed637-e904-4885-a3df-c4ddb0183f79)
-<h1 style="font-weight: bold;font-size: 30px;font-style: italic;">recmuse</h1>
-![Artboard 2](https://github.com/user-attachments/assets/a3eba51c-09e3-4896-9f9c-44699be2d89e)
+
+![hhh](https://github.com/user-attachments/assets/50ef5f7a-c47c-4aeb-9dd8-9175e2129ba0)
+<h1 style="font-weight: bold;font-size: 30px;">be with music</h1>
